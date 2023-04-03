@@ -8,16 +8,16 @@ from jax import random
 
 from utils import scatter_3d
 
-def update(x, key, dt=0.1, G=1):
+def update(x, key, dt=0.05, G=1):
     d = dist(x)
     norm = jnp.linalg.norm(d, axis=2) + jnp.eye(d.shape[0], d.shape[1])
     norm = jnp.tile(norm[..., None], d.shape[-1])
     d_norm = (G / x.shape[0]) * (d / norm)
     f = jnp.sum(d_norm, axis=1)
-    #f += 0.1*jnp.mean(x, axis=0)
+    f += 0.25*jnp.mean(x, axis=0)
 
     x -= f*dt
-    #x += 0.1*random.normal(key, f.shape)
+    x += 0.05*random.normal(key, f.shape)
     return x
 
 def dist(x):
@@ -28,8 +28,9 @@ def dist(x):
 
 if __name__ == '__main__':
     d = 3
-    n = 50
-    key = random.PRNGKey(np.random.randint(0, 100000)) 
+    n = 64
+    #key = random.PRNGKey(np.random.randint(0, 100000)) 
+    key = random.PRNGKey(2) 
 
     # generate random positions from 2 gaussians
     key, subkey = random.split(key)
@@ -42,8 +43,9 @@ if __name__ == '__main__':
     x = x.at[n//2:].set(x[n//2:] + m[1])
 
     x_all = [x]
+    frames = 200
     # make random positions, and update key
-    for i in range(100):
+    for i in range(frames):
         key, subkey = random.split(key)
         x = update(x, subkey)
         x_all.append(x)
@@ -52,4 +54,4 @@ if __name__ == '__main__':
     x_all = jnp.array(x_all)
 
     # make animation
-    scatter_3d(x_all)
+    scatter_3d(x_all, frames)
