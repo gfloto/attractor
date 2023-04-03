@@ -2,7 +2,7 @@
 ## Initial Formulation
 
 A random variable:  
-$\gamma_t : \Omega \rarr \mathcal{X}$ with measure theory stuff: $(\Omega,\mathcal{F},P)$   
+$\gamma_t : \Omega \rightarrow \mathcal{X}$ with measure theory stuff: $(\Omega,\mathcal{F},P)$   
 $\gamma_t^{-1}(S) = \{w \in \Omega | \gamma(w) \in S \}, S \in \mathcal{X}$  
 $p_t(x) = P(\gamma_t^{-1}(x))$  
 
@@ -20,5 +20,5 @@ By using using this equation in expectation we see
 $f(y) = \mathbb{E}_{p_t(x)} \left[ \frac{x-y}{\Vert x-y\Vert^2} \right]$
 
 In order to ensure that batching works properly, we can include a weiner process, and pull towards the origin s.t. taking batches in the expectation result in identical terminal distributions
-$$ \frac{\partial}{\partial t}p_t(x) = -\nabla \cdot \left( \mathbb{E}_{p_t(x)} \left[ \frac{x-y}{\Vert x - y\Vert^2} -x \right] \right) + \lambda \nabla^2\cdot[ D_t(x)p_t(x) ]$$
 
+$$ \frac{\partial}{\partial t}p_t(x) = -\nabla \cdot \left( \mathbb{E}_{p_t(x)} \left[ \frac{x-y}{\Vert x - y\Vert^2} -x \right] \right) + \lambda \nabla^2\cdot[ D_t(x)p_t(x) ]$$  
