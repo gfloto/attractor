@@ -39,5 +39,5 @@ To sample from a score based model, we just need to invert the sde as follows:
 $dx = [f_t(x) - g(t)^2 \nabla_{x}\textrm{log }p_t(x)]dt + g(t)d\bar{w}$  
 where $\bar{w}$ is the weiner process when time flow backwards.  
 
-We can estimate $\nabla_x p_t(x)$ by learning $s_{\theta}(x,t)$
+We can estimate $\nabla_x p_t(x)$ by learning $s_{\theta}(x,t)$:  
 $$\theta^* = \mathrm{argmin}_{\theta}\left( \mathbb{E}_{t\sim U(0,1)}\mathbb{E}_{x_0\sim p_{\mathrm{data}}(x)} \mathbb{E}_{x_t\sim p(x_t|x_0)} \lambda_t \left[\Vert s_\theta(x_t,t)- \nabla_{x_t}\textrm{log }p_{0t}(x_t|x_0) \Vert^2_2 \right] \right)$$
